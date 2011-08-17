@@ -20,8 +20,8 @@ import org.testng.annotations.Test;
  */
 @Test
 @ContextConfiguration(locations = {"classpath:application-context.xml"})
-public class MerchantOrder2Tests extends AbstractTestNGSpringContextTests {
-    private static final Logger log = LoggerFactory.getLogger(MerchantOrder2Tests.class);
+public class MerchantOrder2Test extends AbstractTestNGSpringContextTests {
+    private static final Logger log = LoggerFactory.getLogger(MerchantOrder2Test.class);
 
     @Autowired
     @Qualifier("rmiClientQualifier")

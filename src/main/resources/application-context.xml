@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="rmiMerchantOrder2Impl" class="ru.terrabank.rmi.MerchantOrder2Impl" />
+
+    <bean id="rmiMerchantOrder2Exporter" class="org.springframework.remoting.rmi.RmiServiceExporter">
+        <property name="serviceName" value="tb-rmi-service" />
+        <property name="registryPort" value="7890"/>
+        <property name="service" ref="rmiMerchantOrder2Impl" />
+        <property name="serviceInterface" value="ru.terrabank.rmi.IMerchantOrder2" />
+        <property name="serverSocketFactory" ref="rmiServerSocketFactory" />
+        <property name="clientSocketFactory" ref="rmiClientSocketFactory" />
+    </bean>
+
+    <bean id="rmiClient" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+        <property name="serviceUrl" value="rmi://localhost:7890/tb-rmi-service" />
+        <property name="serviceInterface" value="ru.terrabank.rmi.IMerchantOrder2" />
+        <property name="registryClientSocketFactory" ref="rmiClientSocketFactory" />
+        <qualifier value="rmiClientQualifier"/>
+    </bean>
+
+    <bean id="rmiClientSocketFactory" class="ru.terrabank.rmi.TerrabankRMIClientSocketFactory">
+        <constructor-arg index="0" value="500" />
+    </bean>
+
+    <bean id="rmiServerSocketFactory" class="ru.terrabank.rmi.TerrabankRMIServerSocketFactory">
+        <constructor-arg index="0" value="500" />
+    </bean>
+</beans>

@@ -27,7 +27,7 @@ public class TerrabankRMIClientSocketFactory implements Serializable, RMIClientS
     public Socket createSocket(String host, int port) throws IOException {
         Socket socket = RMISocketFactory.getDefaultSocketFactory().createSocket(host, port);
         socket.setSoTimeout(timeoutInMilliseconds);
-
+        socket.setSoLinger(true, 2);
         log.info("Creating a client socket having {} milliseconds timeout", timeoutInMilliseconds);
         return socket;
     }
